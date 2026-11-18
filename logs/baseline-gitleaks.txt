@@ -1,0 +1,9 @@
+Downloading virtualenv (5.5MiB)
+ Downloaded virtualenv
+Installed 11 packages in 3ms
+[INFO] Initializing environment for https://github.com/gitleaks/gitleaks.
+[INFO] Installing environment for https://github.com/gitleaks/gitleaks.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+Scan checkout for secrets................................................Passed
+Scan commit history for secrets..........................................Passed

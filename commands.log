@@ -1,0 +1,106 @@
+SYNTHETIC run directories — not real benchmark rows
+These commands were captured from the real summarize module.
+
+### clean synthetic run: scores, failure kinds, agreement
+$ uv run --frozen python -m parallel_search_evals.summarize run_dir=/tmp/pse-demo/clean-synthetic
+suite: hle
+search_engine: baseline
+model: gpt-fixture
+provider: openai
+source_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+records found: 3
+completed: 2
+failed: 1
+correct: 1
+score: 0.3333333333333333
+failure kinds:
+  TimeoutError: 1
+saved summary: agrees
+exit: 0
+
+### write CSV from the clean synthetic run
+$ uv run --frozen python -m parallel_search_evals.summarize run_dir=/tmp/pse-demo/clean-synthetic csv=/tmp/pse-demo/clean-synthetic.csv
+suite: hle
+search_engine: baseline
+model: gpt-fixture
+provider: openai
+source_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+records found: 3
+completed: 2
+failed: 1
+correct: 1
+score: 0.3333333333333333
+failure kinds:
+  TimeoutError: 1
+saved summary: agrees
+exit: 0
+
+### show CSV contents
+$ cat /tmp/pse-demo/clean-synthetic.csv
+task_id,status,correct,score,failure_kind
+task-a,completed,true,1.0,
+task-b,completed,false,0.0,
+task-c,failed,false,0.0,TimeoutError
+exit: 0
+
+### show CSV permissions
+$ ls -l /tmp/pse-demo/clean-synthetic.csv
+-rw------- 1 ubuntu ubuntu 134 Nov 18 01:51 /tmp/pse-demo/clean-synthetic.csv
+exit: 0
+
+### refuse to overwrite the existing CSV
+$ uv run --frozen python -m parallel_search_evals.summarize run_dir=/tmp/pse-demo/clean-synthetic csv=/tmp/pse-demo/clean-synthetic.csv
+suite: hle
+search_engine: baseline
+model: gpt-fixture
+provider: openai
+source_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+records found: 3
+completed: 2
+failed: 1
+correct: 1
+score: 0.3333333333333333
+failure kinds:
+  TimeoutError: 1
+saved summary: agrees
+[stderr]
+Refusing to overwrite existing file: /tmp/pse-demo/clean-synthetic.csv (pass overwrite=true)
+exit: 1
+
+### malformed synthetic run: reported and excluded
+$ uv run --frozen python -m parallel_search_evals.summarize run_dir=/tmp/pse-demo/malformed-synthetic
+suite: hle
+search_engine: baseline
+model: gpt-fixture
+provider: openai
+source_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+records found: 2
+completed: 2
+failed: 0
+correct: 1
+score: 0.75
+failure kinds: none
+malformed task files (excluded from score; would rerun on resume):
+  task-c.json
+saved summary: agrees
+exit: 0
+
+### sentinel must not appear in CSV
+$ rg SYNTHETIC_SENTINEL_DO_NOT_EXPORT /tmp/pse-demo/clean-synthetic.csv
+exit: 1
+
+### sentinel must not appear in clean summarize stdout
+$ rg SYNTHETIC_SENTINEL_DO_NOT_EXPORT /tmp/pse-demo/clean-stdout.txt
+exit: 1
+
+### sentinel must not appear in malformed summarize stdout
+$ rg SYNTHETIC_SENTINEL_DO_NOT_EXPORT /tmp/pse-demo/malformed-stdout.txt
+exit: 1
+
+### sentinel is present in the private synthetic task files
+$ rg -l SYNTHETIC_SENTINEL_DO_NOT_EXPORT /tmp/pse-demo/clean-synthetic
+/tmp/pse-demo/clean-synthetic/task-c.json
+/tmp/pse-demo/clean-synthetic/task-a.json
+/tmp/pse-demo/clean-synthetic/task-b.json
+exit: 0
+

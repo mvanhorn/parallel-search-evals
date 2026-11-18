@@ -1,0 +1,52 @@
+{
+  "mean_complexity": 2.854961832061069,
+  "mean_mi": 71.09866501973053,
+  "ruff_count": 6,
+  "module_count": 28,
+  "function_count": 131,
+  "lines": {
+    "physical_lines": 2654,
+    "sloc": 1956,
+    "lloc": 1653,
+    "comments": 20,
+    "blank": 470
+  },
+  "decision_excess": 243,
+  "worst_function": {
+    "path": "src/parallel_search_evals/agent.py",
+    "line": 53,
+    "name": "answer",
+    "complexity": 9
+  },
+  "lowest_module": {
+    "path": "src/parallel_search_evals/models/gemini.py",
+    "physical_lines": 274,
+    "sloc": 220,
+    "lloc": 180,
+    "comments": 6,
+    "blank": 42,
+    "classes": 9,
+    "mi": 39.99079946759118,
+    "mi_without_multiline_comments": 36.734162887729795
+  },
+  "parser_diagnostics": [
+    {
+      "path": "src/parallel_search_evals/models/base.py",
+      "python_only": {
+        "aclose": 1,
+        "generate": 1
+      },
+      "lizard_only": {}
+    },
+    {
+      "path": "src/parallel_search_evals/runtime.py",
+      "python_only": {
+        "join_tasks": 1
+      },
+      "lizard_only": {
+        "]": 1
+      }
+    }
+  ],
+  "gates_pass": true
+}
