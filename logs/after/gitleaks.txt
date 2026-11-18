@@ -1,0 +1,2 @@
+Scan checkout for secrets................................................Passed
+Scan commit history for secrets..........................................Passed

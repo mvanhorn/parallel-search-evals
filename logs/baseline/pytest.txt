@@ -1,0 +1,112 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace
+configfile: pyproject.toml
+testpaths: tests
+plugins: asyncio-1.5.0, anyio-4.14.2
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 1387 items
+
+tests/models/test_auth_isolation.py .......                              [  0%]
+tests/models/test_backend_boundary.py .................................. [  2%]
+...                                                                      [  3%]
+tests/models/test_call_id_scope.py ..                                    [  3%]
+tests/models/test_chat_protocol.py ........                              [  3%]
+tests/models/test_config_boundary.py ................................... [  6%]
+......                                                                   [  6%]
+tests/models/test_credentials.py .............................           [  8%]
+tests/models/test_endpoint_security.py ................................. [ 11%]
+.............................FF...................................       [ 16%]
+tests/models/test_explicit_routes.py .....                               [ 16%]
+tests/models/test_gemini_call_fields.py ..............................   [ 18%]
+tests/models/test_gemini_continuation.py .........................       [ 20%]
+tests/models/test_gemini_native.py ......................                [ 21%]
+tests/models/test_gemini_parallel.py ....                                [ 22%]
+tests/models/test_gemini_review.py ..............                        [ 23%]
+tests/models/test_history.py ........................................    [ 26%]
+tests/models/test_history_dump.py ...                                    [ 26%]
+tests/models/test_model_settings.py ..............                       [ 27%]
+tests/models/test_native_call_fields.py ................................ [ 29%]
+..........                                                               [ 30%]
+tests/models/test_native_envelopes.py ........................           [ 32%]
+tests/models/test_native_fidelity.py ...............                     [ 33%]
+tests/models/test_native_parameter_mapping.py ..........                 [ 33%]
+tests/models/test_native_persistence.py ........                         [ 34%]
+tests/models/test_parsed_text_ownership.py ..............                [ 35%]
+tests/models/test_public_model_limits.py ...........................     [ 37%]
+tests/models/test_redirect_security.py ............................      [ 39%]
+tests/models/test_responses_extensions.py ....                           [ 39%]
+tests/models/test_responses_instructions.py ............                 [ 40%]
+tests/models/test_responses_projection.py .............                  [ 41%]
+tests/models/test_suffix_selection.py .............                      [ 42%]
+tests/models/test_tool_failure_cleanup.py ............                   [ 43%]
+tests/models/test_tool_outputs.py .......................                [ 45%]
+tests/models/test_tool_schema_views.py .......                           [ 45%]
+tests/models/test_visible_definitions.py ..                              [ 45%]
+tests/run/test_assembly.py .......                                       [ 46%]
+tests/run/test_evaluation.py ................................            [ 48%]
+tests/run/test_records.py ...........................                    [ 50%]
+tests/test_chat_cli.py ............                                      [ 51%]
+tests/test_contamination_cli.py .........                                [ 51%]
+tests/test_dataset_selection.py .................................        [ 54%]
+tests/test_datum_metadata.py ..                                          [ 54%]
+tests/test_deadline_parity.py ...........                                [ 55%]
+tests/test_dsqa_score_counts.py .                                        [ 55%]
+tests/test_empty_cohort.py ..                                            [ 55%]
+tests/test_failure_details.py ..................................         [ 57%]
+tests/test_filter_wiring.py .........                                    [ 58%]
+tests/test_gemini_cli.py ............................................... [ 62%]
+.............                                                            [ 62%]
+tests/test_generation_protocol.py ...                                    [ 63%]
+tests/test_import_boundaries.py ......                                   [ 63%]
+tests/test_judge_envelopes.py .............                              [ 64%]
+tests/test_local_assets.py ..                                            [ 64%]
+tests/test_local_binary.py ........                                      [ 65%]
+tests/test_local_cli.py ...........                                      [ 66%]
+tests/test_local_questions.py ............                               [ 66%]
+tests/test_meaningful_text.py .......................................... [ 69%]
+......                                                                   [ 70%]
+tests/test_official.py .............                                     [ 71%]
+tests/test_parallel_cli.py ............................................. [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 84%]
+.......                                                                  [ 85%]
+tests/test_parallel_defaults.py ................                         [ 86%]
+tests/test_parallel_sdk.py ..........                                    [ 87%]
+tests/test_private_storage.py ................                           [ 88%]
+tests/test_repository_checks.py .....                                    [ 88%]
+tests/test_responses_tool_default.py ....                                [ 89%]
+tests/test_routes_cli.py ............................................... [ 92%]
+.........................                                                [ 94%]
+tests/test_source_boundary.py ......                                     [ 94%]
+tests/tools/test_contamination.py ...................................... [ 97%]
+...............................                                          [ 99%]
+tests/tools/test_dispatch_contract.py ....                               [100%]
+
+=================================== FAILURES ===================================
+_ test_https_and_literal_loopback_actual_sdk_dispatch_preserves_endpoint[http://[::ffff:127.0.0.1]/v1-responses] _
+tests/models/test_endpoint_security.py:120: in test_https_and_literal_loopback_actual_sdk_dispatch_preserves_endpoint
+    model = providers.open_model(model_settings)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/parallel_search_evals/models/__init__.py:26: in open_model
+    model_settings.validate_selected_route()
+src/parallel_search_evals/models/settings.py:121: in validate_selected_route
+    _validate_compatible_url(self.base_url)
+src/parallel_search_evals/models/settings.py:60: in _validate_compatible_url
+    raise ValueError("Remote compatible base_url requires HTTPS")
+E   ValueError: Remote compatible base_url requires HTTPS
+_ test_https_and_literal_loopback_actual_sdk_dispatch_preserves_endpoint[http://[::ffff:127.0.0.1]/v1-chat] _
+tests/models/test_endpoint_security.py:120: in test_https_and_literal_loopback_actual_sdk_dispatch_preserves_endpoint
+    model = providers.open_model(model_settings)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/parallel_search_evals/models/__init__.py:26: in open_model
+    model_settings.validate_selected_route()
+src/parallel_search_evals/models/settings.py:121: in validate_selected_route
+    _validate_compatible_url(self.base_url)
+src/parallel_search_evals/models/settings.py:60: in _validate_compatible_url
+    raise ValueError("Remote compatible base_url requires HTTPS")
+E   ValueError: Remote compatible base_url requires HTTPS
+=========================== short test summary info ============================
+FAILED tests/models/test_endpoint_security.py::test_https_and_literal_loopback_actual_sdk_dispatch_preserves_endpoint[http://[::ffff:127.0.0.1]/v1-responses]
+FAILED tests/models/test_endpoint_security.py::test_https_and_literal_loopback_actual_sdk_dispatch_preserves_endpoint[http://[::ffff:127.0.0.1]/v1-chat]
+================== 2 failed, 1385 passed in 65.80s (0:01:05) ===================

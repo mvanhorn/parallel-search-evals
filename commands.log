@@ -1,0 +1,83 @@
+# Real captured command output
+# All run directories are synthetic (no live benchmark rows).
+
+$ uv run --frozen python -m parallel_search_evals.compare \
+    base=/tmp/demo-synthetic/synthetic-baseline \
+    candidate=/tmp/demo-synthetic/synthetic-search \
+    ids=true
+base: score=0.333333 correct=2/6 failed=2 search_engine=baseline synthetic=True
+candidate: score=0.500000 correct=3/6 failed=1 search_engine=parallel-fast synthetic=True
+differing settings: search_engine, model
+paired (failures counted as incorrect):
+  both_correct: 1
+  only_base_correct: 1
+  only_candidate_correct: 2
+  neither: 2
+failures (counted as incorrect): base=2 candidate=1
+net change: score=+0.166667 correct=+1
+exact two-sided McNemar (binomial) p-value: 1
+only_base_correct ids:
+  q2
+only_candidate_correct ids:
+  q3
+  q5
+exit_code=0
+
+$ uv run --frozen python -m parallel_search_evals.compare \
+    base=/tmp/demo-synthetic/synthetic-baseline \
+    candidate=/tmp/demo-synthetic/synthetic-search \
+    json=true | python3 -m json.tool
+{
+    "differences": [
+        "search_engine",
+        "model"
+    ],
+    "base": {
+        "score": 0.3333333333333333,
+        "total_correct": 2,
+        "failed_samples": 2,
+        "total_samples": 6,
+        "search_engine": "baseline",
+        "synthetic": true
+    },
+    "candidate": {
+        "score": 0.5,
+        "total_correct": 3,
+        "failed_samples": 1,
+        "total_samples": 6,
+        "search_engine": "parallel-fast",
+        "synthetic": true
+    },
+    "paired": {
+        "both_correct": 1,
+        "only_base_correct": 1,
+        "only_candidate_correct": 2,
+        "neither": 2
+    },
+    "failures": {
+        "base": 2,
+        "candidate": 1
+    },
+    "net_change": {
+        "score": 0.16666666666666669,
+        "correct": 1
+    },
+    "mcnemar": {
+        "method": "exact two-sided McNemar (binomial)",
+        "p_value": 1.0,
+        "discordant": 3
+    }
+}
+exit_code=0
+
+$ uv run --frozen python -m parallel_search_evals.compare \
+    base=/tmp/demo-synthetic/synthetic-baseline \
+    candidate=/tmp/demo-synthetic/synthetic-other-source
+Unmatched configuration: source_sha256
+exit_code=1
+
+$ uv run --frozen python -m parallel_search_evals.compare \
+    base=/tmp/demo-synthetic/synthetic-baseline \
+    candidate=/tmp/demo-synthetic/synthetic-missing-two
+Unmatched task IDs: 2 missing from candidate (q5, q6)
+exit_code=1
